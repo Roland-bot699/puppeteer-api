@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-{
-  "name": "puppeteer-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
@@ -15,15 +10,4 @@
     "puppeteer": "^21.3.8",
     "cheerio": "^1.0.0-rc.12"
   }
-}    
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.1.0",
-    "puppeteer": "^24.12.1"
-  },
-  "devDependencies": {},
-  "description": ""
 }
