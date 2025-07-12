@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "puppeteer install"
   },
   "dependencies": {
-    "express": "4.21.2",
-    "puppeteer": "21.11.0"
+    "express": "^4.21.2",
+    "puppeteer": "^22.8.2"
   }
 }
