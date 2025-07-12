@@ -8,7 +8,6 @@ app.get('/search', async (req, res) => {
 
   try {
    const browser = await puppeteer.launch({
-  executablePath: '/usr/bin/chromium-browser', // ← Railway 環境才需要這行
   headless: true,
   args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
