@@ -11,35 +11,35 @@ app.get('/search', async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-  headless: true,
-  args: [
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
-    '--disable-blink-features=AutomationControlled'
-  ],
-});
-const page = await browser.newPage();
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-zygote',
+        '--disable-gpu',
+        '--single-process'
+      ]
+    });
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
-await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    const content = await page.content();
+    await browser.close();
 
-await page.goto(url, { waitUntil: 'domcontentloaded' }); 
-await page.waitForSelector('.xincai_block ul li', { timeout: 10000 }); // 最多等10秒
-
-const content = await page.content();
-await browser.close();
-res.send(content);
-
+    res.send(content);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('爬蟲錯誤');
+    console.error('❌ Puppeteer error:', err);
+    res.status(500).send('❌ 爬蟲失敗，請查看 Railway logs');
   }
 });
 
 app.get('/', (req, res) => {
-  res.send('Puppeteer API server is running!');
+  res.send('✅ Puppeteer API is running on Railway');
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
