@@ -1,21 +1,41 @@
 # Dockerfile
 FROM node:20-slim
 
-# 安裝 Puppeteer 需要的系統套件
+# 安裝 Puppeteer 所需的系統套件
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         fonts-noto-color-emoji \
-        && rm -rf /var/lib/apt/lists/*
+        ca-certificates \
+        libnss3 \
+        libxss1 \
+        libatk1.0-0 \
+        libatk-bridge2.0-0 \
+        libcups2 \
+        libxcomposite1 \
+        libxrandr2 \
+        libgbm1 \
+        libasound2 \
+        libx11-xcb1 \
+        libxdamage1 \
+        libxshmfence1 \
+        libpangocairo-1.0-0 \
+        xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
 
+# 建立專案資料夾
 WORKDIR /app
+
+# 複製 package.json 並安裝依賴
 COPY package*.json ./
 RUN npm ci --omit=dev
 
+# 複製剩下檔案
 COPY . .
 
+# 設定環境變數與啟動指令
 ENV PORT=3000 \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-# Railway 會自動注入 process.env.PORT
+# Railway 會自動注入 PORT，這裡僅供 Docker 建立時預設值
 EXPOSE 3000
 CMD ["npm", "start"]

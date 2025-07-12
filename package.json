@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "clean": "rm -rf node_modules package-lock.json && npm install"
   },
   "dependencies": {
     "express": "^4.21.2",
-    "puppeteer": "^21.11.0"
+    "puppeteer": "^24.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

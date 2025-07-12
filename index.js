@@ -7,10 +7,10 @@ app.get('/search', async (req, res) => {
   if (!keyword) return res.status(400).send('請提供 keyword');
 
   try {
-    const browser = await puppeteer.launch({
-      executablePath: '/usr/bin/chromium-browser',
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+   const browser = await puppeteer.launch({
+  executablePath: '/usr/bin/chromium-browser', // ← Railway 環境才需要這行
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
@@ -30,6 +30,6 @@ app.get('/search', async (req, res) => {
 
 // 正確的 PORT 與監聽方式
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server running at http://0.0.0.0:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
